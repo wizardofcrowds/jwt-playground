@@ -76,6 +76,7 @@ GEM
     ffi (1.15.3)
     globalid (0.5.1)
       activesupport (>= 5.0)
+    httpclient (2.8.3)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     listen (3.6.0)
@@ -171,6 +172,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   factory_bot_rails
+  httpclient
   listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)
