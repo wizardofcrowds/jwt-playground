@@ -1,24 +1,29 @@
-# README
+# APIs for Noodle Lovers
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+With these web APIs, consumers can search venues that serve noodles.
 
-Things you may want to cover:
+## APIs
 
-* Ruby version
+Open API doc will be available sooon.
 
-* System dependencies
+### Authentication
 
-* Configuration
+Currently not required.
 
-* Database creation
+### Freshness of Data
 
-* Database initialization
+This service is backed by Foursquare Venue Search API. In order to avoid overwhelming the Foursquare API, we cache the response for 24 hours. This means that with the same query paramenters, you would get the same results up to 24 hours.
 
-* How to run the test suite
+### Rate Limiting
 
-* Services (job queues, cache servers, search engines, etc.)
+We may introduce rate limiting after authentication is implemented.
 
-* Deployment instructions
+### Ramen API
 
-* ...
+`GET /v1/ramen_venues`
+
+Required parameters:
+
+`near` (required): Specify the location of your interest. e.g. New York, NY
+`sort` (optional): distance or relevance. By default, the results are sorted by relevance
+`filter` (optional): Keyword, such as the restaurant's name, e.g. "Totto ramen"
