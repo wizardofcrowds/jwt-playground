@@ -31,4 +31,12 @@ module FoursquareClient
       client.connect_timeout = FoursquareClient.connect_timeout
     end
   end
+
+  def self.default_params
+    {
+      client_id: FoursquareClient.client_id,
+      client_secret: FoursquareClient.client_secret,
+      v: FoursquareClient.compatible_date
+    }
+  end
 end
