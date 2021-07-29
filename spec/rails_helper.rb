@@ -9,6 +9,8 @@ require 'rspec/rails'
 require 'webmock/rspec'
 require_relative 'support/factory_bot'
 
+RSpec::OpenAPI.path = 'public/doc/schema.yaml'
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
