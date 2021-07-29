@@ -4,7 +4,11 @@ With these web APIs, consumers can search venues that serve noodles.
 
 ## APIs
 
-Open API doc will be available sooon.
+### Open API schema
+
+The schema is available at
+
+`HOST/doc/schema.yaml`
 
 ### Authentication
 
@@ -18,7 +22,7 @@ This service is backed by Foursquare Venue Search API. In order to avoid overwhe
 
 We may introduce rate limiting after authentication is implemented.
 
-### Ramen API
+### Noodles API
 
 `GET /v1/noodle_venues`
 
@@ -29,6 +33,24 @@ Required parameters:
 - `keyword` (optional): Keyword, such as the restaurant's name, e.g. "Totto ramen"
 
 
+### Tokens API
+
+`POST /v1/tokens`
+
+If successful, it returns a JWT token that could be used for further authentications.
+
+Required information in the post data:
+
+- `client_identifier` (required)
+- `client_secret` (required)
+
+
 ## Setup
 
 This requires the following environment variables `FOURSQUARE_CLIENT_ID` and `FOURSQUARE_CLIENT_SECRET`
+
+## TODOs
+
+- Add JWT based authentication for noodle venues API
+- Rate limiting
+- Heroku deployment
