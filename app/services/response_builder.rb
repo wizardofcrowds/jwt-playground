@@ -10,13 +10,7 @@ class ResponseBuilder
   end
 
   def build
-    response = if (cached = Search.where(slug: slug).where('updated_at > ?', 24.hours.ago).first)
-                  cached.upstream_response
-               else
-                 resp = venue_search.execute
-                 Search.find_or_create_by(slug: slug, upstream_response: resp)
-                 resp
-               end
+    response = get_response
 
     venues = response.dig('response', 'venues')
     if @sort == 'distance'
@@ -24,5 +18,25 @@ class ResponseBuilder
     end
 
     { venues: venues }
+  end
+
+  private
+
+  def get_response
+    if (cached = Search.find_by(slug: slug))
+      return cache_handling(cached)
+    else
+      resp = venue_search.execute
+      Search.find_or_create_by(slug: slug).tap { |s| s.upstream_response = resp }
+      resp
+    end
+  end
+
+  def cache_handling(cache_record)
+    if cache_record.updated_at <= 24.hours.ago
+      resp = venue_search.execute
+      cache_record.update_attribute(:upstream_response, resp)
+    end
+    return cache_record.upstream_response
   end
 end
