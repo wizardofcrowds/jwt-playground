@@ -63,3 +63,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+def load_mock_data(filename)
+  File.read(File.dirname(__FILE__) + "/mock_data/#{filename}")
+end
