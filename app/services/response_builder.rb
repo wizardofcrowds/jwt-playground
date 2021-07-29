@@ -4,8 +4,9 @@ class ResponseBuilder
 
   def initialize(query_options={})
     @sort = query_options.delete(:sort) || 'relevance'
-    @query_options = query_options
-    @venue_search = FoursquareClient::VenueSearch.new(@query_options)
+    @venue_search = FoursquareClient::VenueSearch.new(keyword: query_options[:keyword],
+                                                      near: query_options[:near],
+                                                      category_id: query_options[:category_id])
   end
 
   def build
@@ -19,9 +20,9 @@ class ResponseBuilder
 
     venues = response.dig('response', 'venues')
     if @sort == 'distance'
-      return venues.sort{ |a, b| a.dig('location', 'distance') <=> b.dig('location', 'distance') }
+      return { venues: venues.sort{ |a, b| a.dig('location', 'distance') <=> b.dig('location', 'distance') } }
     end
 
-    venues
+    { venues: venues }
   end
 end

@@ -24,7 +24,7 @@ RSpec.describe ResponseBuilder do
         search = create(:search, slug: slug, upstream_response: JSON.parse(load_mock_data('venue_search_response.txt')))
 
         builder = ResponseBuilder.new(category_id: nil, keyword: 'Totto', near: 'New York, NY', sort: 'distance')
-        expect(builder.build).to eq(eval(load_mock_data('venues.txt')))
+        expect(builder.build).to eq({ venues: eval(load_mock_data('venues.txt')) })
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe ResponseBuilder do
 
           builder = ResponseBuilder.new(category_id: nil, keyword: 'Totto', near: 'New York, NY', sort: 'distance')
   
-          expect(builder.build).to eq(eval(load_mock_data('venues.txt')))
+          expect(builder.build).to eq({ venues: eval(load_mock_data('venues.txt')) })
         end
       end
 
@@ -50,7 +50,7 @@ RSpec.describe ResponseBuilder do
           allow(venue_search).to receive(:slug).and_return('hogehogehoge')
           builder = ResponseBuilder.new(category_id: nil, keyword: 'Totto', near: 'New York, NY', sort: 'relevance')
 
-          expect(builder.build).to eq(eval(load_mock_data('venues_by_relevance.txt')))
+          expect(builder.build).to eq({ venues: eval(load_mock_data('venues_by_relevance.txt')) })
         end
       end
     end

@@ -1,0 +1,75 @@
+require 'rails_helper'
+
+RSpec.describe "/noodle_venues", type: :request do
+  let(:full_valid_attributes) {
+    { keyword: 'Totto', near: 'New York, NY', sort: 'distance' }
+  }
+
+  let(:minimal_valid_attributes) {
+    { near: 'New York, NY' }
+  }
+
+  let(:invalid_attributes) {
+    { keyword: 'Totto', sort: 'distance' }
+  }
+
+  let(:invalid_attributes_in_sort) {
+    { keyword: 'Totto', sort: 'blah', near: 'New York, NY' }
+  }
+
+  let(:valid_headers) {
+    {}
+  }
+
+  describe "GET /" do
+    context "with valid parameters" do
+      it "renders a JSON response with the new noodle_venue" do
+        builder = instance_double(ResponseBuilder)
+        allow(ResponseBuilder).to receive(:new).with({"category_id"=>nil,
+          "keyword"=>"Totto",
+          "near"=>"New York, NY",
+          "sort"=>"distance"}).and_return(builder)
+        venues = { venues: eval(load_mock_data('venues.txt')) }
+        allow(builder).to receive(:build).and_return(venues)
+
+        get noodle_venues_url(full_valid_attributes), headers: valid_headers, as: :json
+        expect(response).to have_http_status(:successful)
+        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.body).to eq(venues.to_json)
+      end
+    end
+
+    context "with minimal valid parameters" do
+      it "renders a JSON response with the new noodle_venue" do
+        builder = instance_double(ResponseBuilder)
+        allow(ResponseBuilder).to receive(:new).with({"category_id"=>nil,
+          "near"=>"New York, NY"}).and_return(builder)
+        venues = { venues: eval(load_mock_data('venues.txt')) }
+        allow(builder).to receive(:build).and_return(venues)
+
+        get noodle_venues_url(minimal_valid_attributes), headers: valid_headers, as: :json
+        expect(response).to have_http_status(:successful)
+        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.body).to eq(venues.to_json)
+      end
+    end
+
+    context "with invalid parameters" do
+      it "renders a JSON response with errors" do
+        get noodle_venues_url(invalid_attributes), headers: valid_headers, as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.body).to eq("{\"error\":\"near parameter is required\"}")
+      end
+    end
+
+    context "with invalid parameters in sort" do
+      it "renders a JSON response with errors" do
+        get noodle_venues_url(invalid_attributes_in_sort), headers: valid_headers, as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.body).to eq("{\"error\":\"you can set relevance or distance to the sort parameter\"}")
+      end
+    end
+  end
+end
