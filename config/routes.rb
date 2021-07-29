@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
-  resource :noodle_venues, only: :show
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # we only have v1, so not using namespace for now
+  scope :v1 do
+    resource :noodle_venues, only: :show
+  end
 end
