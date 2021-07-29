@@ -25,10 +25,11 @@ RSpec.describe "/noodle_venues", type: :request do
     context "with valid parameters" do
       it "renders a JSON response with the new noodle_venue" do
         builder = instance_double(ResponseBuilder)
-        allow(ResponseBuilder).to receive(:new).with({"category_id"=>nil,
+        allow(ResponseBuilder).to receive(:new).with({
           "keyword"=>"Totto",
           "near"=>"New York, NY",
-          "sort"=>"distance"}).and_return(builder)
+          "sort"=>"distance",
+          "category_id"=>"55a59bace4b013909087cb24,4bf58dd8d48988d1d1941735,4bf58dd8d48988d149941735,4bf58dd8d48988d14a941735,55a59bace4b013909087cb27"}).and_return(builder)
         venues = { venues: eval(load_mock_data('venues.txt')) }
         allow(builder).to receive(:build).and_return(venues)
 
@@ -42,7 +43,7 @@ RSpec.describe "/noodle_venues", type: :request do
     context "with minimal valid parameters" do
       it "renders a JSON response with the new noodle_venue" do
         builder = instance_double(ResponseBuilder)
-        allow(ResponseBuilder).to receive(:new).with({"category_id"=>nil,
+        allow(ResponseBuilder).to receive(:new).with({"category_id"=>"55a59bace4b013909087cb24,4bf58dd8d48988d1d1941735,4bf58dd8d48988d149941735,4bf58dd8d48988d14a941735,55a59bace4b013909087cb27",
           "near"=>"New York, NY"}).and_return(builder)
         venues = { venues: eval(load_mock_data('venues.txt')) }
         allow(builder).to receive(:build).and_return(venues)

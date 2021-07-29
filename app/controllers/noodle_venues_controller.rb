@@ -1,5 +1,7 @@
 class NoodleVenuesController < ApplicationController
   class InvalidParams < StandardError; end
+  # Ramen, Noodle House, Thai, Vietnamese, Soba
+  CATEGORIES = '55a59bace4b013909087cb24,4bf58dd8d48988d1d1941735,4bf58dd8d48988d149941735,4bf58dd8d48988d14a941735,55a59bace4b013909087cb27'.freeze
 
   rescue_from InvalidParams do |exception|
     render json: error_message(exception), status: :unprocessable_entity
@@ -8,7 +10,7 @@ class NoodleVenuesController < ApplicationController
   before_action :validate_params
 
   def show
-    builder = ResponseBuilder.new(noodle_venue_params.merge(category_id: nil).to_h.with_indifferent_access)
+    builder = ResponseBuilder.new(noodle_venue_params.merge(category_id: CATEGORIES).to_h.with_indifferent_access)
     render json: builder.build
   end
 
