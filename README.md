@@ -8,7 +8,7 @@ With these web APIs, consumers can search venues that serve noodles.
 
 The schema is available at
 
-`HOST/doc/schema.yaml`
+`https://peaceful-springs-96636.herokuapp.com/doc/schema.yaml`
 
 ### Authentication
 
@@ -53,4 +53,3 @@ This requires the following environment variables `FOURSQUARE_CLIENT_ID` and `FO
 
 - Add JWT based authentication for noodle venues API
 - Rate limiting
-- Heroku deployment
