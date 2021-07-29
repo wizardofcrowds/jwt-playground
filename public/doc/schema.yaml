@@ -1091,3 +1091,36 @@ paths:
                     type: string
               example:
                 error: near parameter is required
+  "/v1/tokens":
+    post:
+      summary: create
+      tags:
+      - Token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_identifier:
+                  type: string
+                client_secret:
+                  type: string
+            example:
+              client_identifier: client
+              client_secret: secret
+      responses:
+        '201':
+          description: renders a JSON response with the new token
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: hoge.hoge.hoge
+        '401':
+          description: renders a JSON response with errors for the new token
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: " "
