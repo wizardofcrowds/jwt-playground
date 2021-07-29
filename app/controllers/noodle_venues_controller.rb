@@ -3,7 +3,7 @@ class NoodleVenuesController < ApplicationController
   # Ramen, Noodle House, Thai, Vietnamese, Soba
   CATEGORIES = '55a59bace4b013909087cb24,4bf58dd8d48988d1d1941735,4bf58dd8d48988d149941735,4bf58dd8d48988d14a941735,55a59bace4b013909087cb27'.freeze
 
-  rescue_from InvalidParams do |exception|
+  rescue_from InvalidParams, FoursquareClient::Errors::Error do |exception|
     render json: error_message(exception), status: :unprocessable_entity
   end
 

@@ -61,6 +61,7 @@ RSpec.describe ResponseBuilder do
           builder = ResponseBuilder.new(category_id: nil, keyword: 'Totto', near: 'New York, NY', sort: 'distance')
   
           expect(builder.build).to eq({ venues: eval(load_mock_data('venues.txt')) })
+          expect(Search.last.upstream_response['meta']).not_to be_nil
         end
       end
 

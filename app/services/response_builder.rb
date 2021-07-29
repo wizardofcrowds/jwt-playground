@@ -27,7 +27,9 @@ class ResponseBuilder
       return cache_handling(cached)
     else
       resp = venue_search.execute
-      Search.find_or_create_by(slug: slug).tap { |s| s.upstream_response = resp }
+      search = Search.find_or_initialize_by(slug: slug)
+      search.upstream_response = resp
+      search.save
       resp
     end
   end
