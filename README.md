@@ -20,13 +20,13 @@ We may introduce rate limiting after authentication is implemented.
 
 ### Ramen API
 
-`GET /v1/ramen_venues`
+`GET /v1/noodle_venues`
 
 Required parameters:
 
-`near` (required): Specify the location of your interest. e.g. New York, NY
-`sort` (optional): distance or relevance. By default, the results are sorted by relevance
-`keyword` (optional): Keyword, such as the restaurant's name, e.g. "Totto ramen"
+- `near` (required): Specify the location of your interest. e.g. New York, NY
+- `sort` (optional): distance or relevance. By default, the results are sorted by relevance
+- `keyword` (optional): Keyword, such as the restaurant's name, e.g. "Totto ramen"
 
 
 ## Setup
